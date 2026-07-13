@@ -252,6 +252,7 @@ class SimVQ1D(SimVQ):
 
 
     def decode(self, indices):
-        z_q = self.embedding(indices).squeeze(0).transpose(1,2)
+        codebook = self.embedding_proj(self.embedding.weight)
+        z_q = F.embedding(indices, codebook).squeeze(0).transpose(1,2)
         # print(z_q.shape) [1,512,125]
         return z_q

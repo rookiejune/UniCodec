@@ -4,11 +4,11 @@ import torch
 import torchaudio
 from torch import nn
 
-from vocos.modules import safe_log
+from .modules import safe_log
 
 import torch.nn.functional as F
 from fairseq.criterions import FairseqCriterion
-from encodec_edit.modules.seanet import HubertConfig
+from encoder.modules.seanet import HubertConfig
 from fairseq.utils import buffered_arange, is_xla_tensor, index_put
 
 

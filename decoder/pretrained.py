@@ -5,9 +5,9 @@ import torch
 import yaml
 from huggingface_hub import hf_hub_download
 from torch import nn
-from vocos.feature_extractors import FeatureExtractor, EncodecFeatures
-from vocos.heads import FourierHead
-from vocos.models import Backbone
+from .feature_extractors import FeatureExtractor, EncodecFeatures
+from .heads import FourierHead
+from .models import Backbone
 
 
 def instantiate_class(args: Union[Any, Tuple[Any, ...]], init: Dict[str, Any]) -> Any:
@@ -224,13 +224,4 @@ class Unicodec(nn.Module):
         if codes.dim() == 2:
             codes = codes.unsqueeze(1)
 
-        n_bins = self.feature_extractor.encodec.quantizer.bins
-        offsets = torch.arange(0, n_bins * len(codes), n_bins, device=codes.device)
-        embeddings_idxs = codes + offsets.view(-1, 1, 1)
-
-        tmp=torch.cat([vq.codebook for vq in self.feature_extractor.encodec.quantizer.vq.layers],dim=0)
-        # features = torch.nn.functional.embedding(embeddings_idxs, self.feature_extractor.codebook_weights).sum(dim=0)
-        features = torch.nn.functional.embedding(embeddings_idxs, tmp).sum(dim=0)
-        features = features.transpose(1, 2)
-
-        return features
+        return self.feature_extractor.encodec.quantizer.decode(codes)

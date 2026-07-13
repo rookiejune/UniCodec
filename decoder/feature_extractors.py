@@ -5,11 +5,11 @@ import torchaudio
 # from encodec import EncodecModel
 from torch import nn
 import math
-from vocos.modules import safe_log
-from encodec_edit.modules import SEANetEncoder, SEANetDecoder
-from encodec_edit import EncodecModel
-from encodec_edit.quantization import ResidualVectorQuantizer
-from encodec_edit.modules.resample import ConvDownsample1d, ConvTrUpsample1d
+from .modules import safe_log
+from encoder.modules import SEANetEncoder, SEANetDecoder
+from encoder.model import EncodecModel
+from encoder.quantization import ResidualVectorQuantizer
+from encoder.modules.resample import ConvDownsample1d, ConvTrUpsample1d
 
 
 class FeatureExtractor(nn.Module):

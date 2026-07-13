@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unicodec"
+version = "0.1.0"
+description = "Installable packaging for UniCodec."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.0",
+    "torchaudio>=2.0",
+    "scipy>=1.10",
+    "einops>=0.6",
+    "pyyaml>=6.0",
+    "huggingface-hub>=0.23",
+    "encodec>=0.1.1",
+    "matplotlib>=3.7",
+    "transformers>=4.28",
+    "pytorch-lightning>=1.8.6",
+    "tensorboardX>=2.6",
+    "soundfile>=0.12",
+    "numpy>=1.23",
+    "jsonargparse[signatures]>=4.15.2",
+    "fairseq",
+    "torchcrepe",
+    "librosa",
+    "pesq",
+]
+
+[tool.setuptools.packages.find]
+include = ["decoder*", "encoder*", "unicodec*"]
+
+[tool.setuptools.package-data]
+"unicodec.configs" = ["*.yaml"]
